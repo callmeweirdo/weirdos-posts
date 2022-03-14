@@ -15,26 +15,35 @@
                 <a href="" class="p-3">Home</a>
             </li>
             <li>
-                <a href="" class="p-3">Dashboard</a>
+                <a href="{{ route('dashboard.index') }}" class="p-3">Dashboard</a>
             </li>
             <li>
-                <a href="/" class="p-3">Post</a>
+                <a href="{{ route('post.index') }}" class="p-3">Post</a>
             </li>
         </ul>
 
         <ul class="flex items-center">
-            <li>
-                <a href="" class="p-3">Weirdo</a>
-            </li>
-            <li>
-                <a href="" class="p-3">Login</a>
-            </li>
-            <li>
-                <a href="{{ route('register.index') }}" class="p-3">Register</a>
-            </li>
-            <li>
-                <a href="" class="p-3">Log Out</a>
-            </li>
+            @auth
+                <li>
+                    <a href="" class="p-3">{{ auth()->user()->username }}</a>
+                </li>
+                <li>
+                    <form action="{{ route('logout') }}" method="post" class="inline p-3">
+                        @csrf
+                        <button type="submit" class="text-white bg-red-200 rounded">Fuck Off</button>
+                    </form>
+                </li>
+            @endauth
+            @guest
+                <li>
+                    <a href="{{ route('login.index') }}" class="p-3">Login</a>
+                </li>
+                <li>
+                    <a href="{{ route('register.index') }}" class="p-3">Register</a>
+                </li>
+            @endguest
+            
+            
         </ul>
     </nav>
 
